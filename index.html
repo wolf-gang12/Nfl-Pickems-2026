@@ -10,10 +10,10 @@
 <body><main class="wrap"><header><div class="ball">🏈</div><h1>NFL Pick'em 2026</h1><p class="sub">Week 4–18 · kostenlose Fanrunde · Tipps · Punkte · Mitspieler</p></header>
 <section id="auth" class="panel"><div class="grid"><div><h2>Einloggen</h2><input id="loginEmail" type="email" placeholder="E-Mail"><input id="loginPass" type="password" placeholder="Passwort"><button id="login" class="btn primary">Einloggen</button></div><div><h2>Registrieren</h2><input id="regName" maxlength="30" placeholder="Anzeigename"><input id="regEmail" type="email" placeholder="E-Mail"><input id="regPass" type="password" placeholder="Passwort"><button id="register" class="btn">Account erstellen</button></div></div><div id="authMsg" class="notice"></div></section>
 <section id="app" class="hidden"><div class="panel"><div class="top"><div><b id="who"></b><span id="adminBadge"></span></div><button id="logout" class="btn">Ausloggen</button></div><div class="nav"><button class="navbtn" id="homeBtn">🏈 Pick'ems</button><button class="navbtn" id="playersBtn">👥 Mitspieler</button><button class="navbtn" id="standingsBtn">🏆 Rangliste</button><button class="navbtn hidden" id="adminBtn">⚙️ Admin</button></div></div>
-<section id="home"><div class="panel"><h2>Woche auswählen</h2><div id="weeks" class="weeks"></div><div id="weekStatus" class="notice"></div><div class="actions"><button id="start" class="btn primary">Tipps öffnen</button></div></div><section id="gamePanel" class="panel hidden"><div class="top"><span id="counter"></span><span id="picked"></span></div><div class="progress"><div id="bar"></div></div><div id="game"></div></section></div>
+<section id="home"><div class="panel"><h2>Woche auswählen</h2><div id="weeks" class="weeks"></div><div id="weekStatus" class="notice"></div><div class="actions"><button id="start" class="btn primary">Tipps öffnen</button></div></div><section id="gamePanel" class="panel hidden"><div class="top"><span id="counter"></span><span id="picked"></span></div><div class="progress"><div id="bar"></div></div><div id="game"></div></section></section>
 <section id="players" class="panel hidden"><h2>👥 Mitspieler</h2><div id="playersContent"></div></section>
 <section id="board" class="panel hidden"><h2>🏆 Rangliste</h2><div id="boardContent"></div></section>
-<section id="admin" class="panel hidden"><h2>⚙️ Admin</h2><p class="muted">Hier kannst du nach Abschluss der Woche die tatsächlichen Gewinner eintragen. Erst wenn alle Spiele der Woche ausgewählt sind, wird die Woche gespeichert und die Punkte sowie Rangliste automatisch neu berechnet.</p><div id="adminContent"></div></section>
+<section id="admin" class="panel hidden"><h2>⚙️ Admin</h2><p class="muted">Hier kannst du die tatsächlichen Gewinner eintragen. Erst danach werden die Punkte für die jeweiligen Spiele vergeben.</p><div id="adminContent"></div></section>
 </section></main>
 <script>
 const SUPABASE_URL='https://mxxcjdpqsghwvspnznqs.supabase.co';
@@ -97,50 +97,7 @@ async function board(){
 }
 async function admin(){if(!profile?.is_admin)return;const {data}=await sb.from('results').select('week,game_index,winning_team');results={};(data||[]).forEach(r=>results[`${r.week}-${r.game_index}`]=r.winning_team);$('adminContent').innerHTML=`<div class="weeks">${Array.from({length:15},(_,k)=>`<button class="week ${k+4===week?'active':''}" data-aw="${k+4}">Week ${k+4}</button>`).join('')}</div><div id="adminGames"></div>`;document.querySelectorAll('[data-aw]').forEach(b=>b.onclick=()=>{week=+b.dataset.aw;admin()});renderAdminGames();show('admin')}
 function renderAdminGames(){const gs=games[week]||[];$('adminGames').innerHTML=gs.map((g,n)=>{const key=`${week}-${n}`,win=results[key];return `<div class="game" style="margin:10px 0"><div class="top"><b>Spiel ${n+1}</b><span>${win?`✅ ${esc(TEAMS[win][0])}`:'Noch kein Ergebnis'}</span></div><div class="adminGame" style="margin-top:10px">${[g[0],g[1]].map(t=>`<button class="adminTeam ${win===t?'selected':''}" data-res="${n}" data-team="${t}"><img class="logo" src="${logo(t)}" alt="" style="width:42px;height:42px;vertical-align:middle"> ${esc(TEAMS[t][0])}</button>`).join('')}</div></div>`}).join('')+`<button id="saveResults" class="btn primary" style="width:100%;margin-top:12px">Ergebnisse speichern</button>`;document.querySelectorAll('[data-res]').forEach(b=>b.onclick=()=>{results[`${week}-${b.dataset.res}`]=b.dataset.team;renderAdminGames()});$('saveResults').onclick=saveResults}
-async function saveResults(){
-  const gs=games[week]||[];
-  const rows=[];
-
-  // Eine Woche kann nur gewertet werden, wenn alle Spiele ein Ergebnis haben.
-  for(let n=0;n<gs.length;n++){
-    const win=results[`${week}-${n}`];
-    if(!win){
-      alert(`Bitte zuerst den Gewinner von Spiel ${n+1} auswählen.`);
-      return;
-    }
-    rows.push({week,game_index:n,winning_team:win});
-  }
-
-  if(!rows.length){
-    alert(`Für Week ${week} sind keine Spiele eingetragen.`);
-    return;
-  }
-
-  const {error}=await sb.from('results').upsert(rows,{onConflict:'week,game_index'});
-  if(error){
-    alert('Fehler beim Speichern: '+error.message);
-    return;
-  }
-
-  // Die Punkte werden automatisch aus Picks + Ergebnissen berechnet.
-  const {data:leaderboard,error:boardError}=await sb.rpc('get_leaderboard');
-  if(boardError){
-    alert('Ergebnisse gespeichert, aber die Rangliste konnte nicht geladen werden: '+boardError.message);
-    return;
-  }
-
-  // Direkt nach dem Speichern die aktualisierte Rangliste anzeigen.
-  show('board');
-  $('boardContent').innerHTML=`<p class="notice ok">✅ Week ${week} abgeschlossen – ${rows.length} Ergebnisse gespeichert. Punkte und Rangliste wurden automatisch aktualisiert.</p>
-    <table class="table">
-      <tr><th>#</th><th>Mitspieler</th><th>Punkte</th></tr>
-      ${(leaderboard||[]).map((r,n)=>`<tr>
-        <td class="rank">${n+1}</td>
-        <td>👤 ${esc(r.display_name)}${r.id===user?.id?' <span class="pill">Du</span>':''}</td>
-        <td><b>${r.points}</b></td>
-      </tr>`).join('')}
-    </table>`;
-}
+async function saveResults(){const gs=games[week]||[];let count=0;for(let n=0;n<gs.length;n++){const win=results[`${week}-${n}`];if(!win)continue;const {error}=await sb.from('results').upsert({week,game_index:n,winning_team:win});if(error){alert(error.message);return}count++}alert(`${count} Ergebnisse für Week ${week} gespeichert.`);await admin()}
 function show(which){['home','players','board','admin'].forEach(x=>$(x).classList.toggle('hidden',x!==which));if(which==='home'){$('gamePanel').classList.remove('hidden')}else $('gamePanel').classList.add('hidden')}
 $('register').onclick=register;$('login').onclick=login;$('logout').onclick=()=>sb.auth.signOut();$('playersBtn').onclick=players;$('standingsBtn').onclick=board;$('adminBtn').onclick=admin;$('homeBtn').onclick=()=>show('home');$('start').onclick=()=>{i=0;render();$('gamePanel').classList.remove('hidden')};
 sb.auth.getSession().then(({data})=>{if(data.session)boot(data.session.user)});sb.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT'){user=null;profile=null;$('app').classList.add('hidden');$('auth').classList.remove('hidden')}});
