@@ -61,22 +61,21 @@ const logo=abbr=>`https://static.www.nfl.com/image/upload/f_auto,q_auto/league/$
 const games={
 4:[['PIT','CLE'],['IND','WAS'],['TEN','BAL'],['NE','BUF'],['NYJ','CHI'],['JAX','CIN'],['DAL','HOU'],['ARI','NYG'],['LAR','PHI'],['GB','TB'],['MIA','MIN'],['KC','LV'],['LAC','SEA'],['DEN','SF'],['DET','CAR'],['ATL','NO']],
 5:[['TB','DAL'],['PHI','JAX'],['CIN','MIA'],['LV','NE'],['MIN','NO'],['CLE','NYJ'],['IND','PIT'],['HOU','TEN'],['NYG','WAS'],['DEN','LAC'],['DET','ARI'],['CHI','GB'],['SF','SEA'],['BAL','ATL'],['BUF','LAR']],
-6:[['NYJ','DEN'],['JAX','HOU'],['CAR','LAR'],['CLE','PIT'],['PHI','DAL'],['SEA','ARI'],['IND','MIA'],['TEN','BUF'],['NE','NO'],['SF','ATL'],['GB','CIN'],['LAC','KC'],['WAS','49ers'],['TB','PIT'],['LV','CHI'],['DET','MIN']],
-7:[['PIT','NO'],['NYG','DEN'],['CIN','CLE'],['SEA','HOU'],['IND','LAC'],['MIA','BUF'],['NE','ATL'],['DAL','CAR'],['TEN','NYJ'],['KC','WAS'],['GB','ARI'],['TB','SF'],['PHI','MIN'],['JAX','LV'],['BAL','CHI']],
-8:[['CAR','GB'],['BAL','BUF'],['CLE','NE'],['DEN','KC'],['DAL','NYG'],['MIN','DET'],['NO','LAC'],['SF','HOU'],['SEA','CHI'],['TB','ATL'],['TEN','IND'],['NYJ','CIN'],['JAX','LV'],['PHI','NYG'],['PIT','MIA']],
-9:[['JAX','BAL'],['CIN','ATL'],['ARI','SF'],['CLE','NYJ'],['DEN','HOU'],['DET','MIN'],['GB','CAR'],['KC','BUF'],['LAC','TEN'],['LAR','NO'],['MIA','PIT'],['NE','NYG'],['SEA','DAL'],['CHI','CIN'],['WAS','PHI'],['IND','LV']],
-10:[['NE','DET'],['SF','ARI'],['GB','PHI'],['SEA','LAR'],['BAL','CLE'],['KC','LV'],['DEN','HOU'],['BUF','MIA'],['DAL','NYG'],['JAX','TEN'],['NO','CAR'],['PIT','CIN'],['TB','ATL'],['LAC','MIN'],['CHI','IND']],
-11:[['MIN','SF'],['GB','LAR'],['DET','CHI'],['PHI','DAL'],['KC','DEN'],['BUF','HOU'],['BAL','CIN'],['MIA','NYJ'],['SEA','ARI'],['ATL','NO'],['NE','NYG'],['PIT','CLE'],['LAC','LV'],['JAX','TEN'],['IND','CAR']],
-12:[['GB','CHI'],['LAR','SF'],['DAL','PHI'],['DET','NYG'],['BUF','PIT'],['KC','IND'],['DEN','LAC'],['HOU','JAX'],['BAL','CIN'],['SEA','ARI'],['TB','CAR'],['MIN','DET'],['TEN','HOU'],['NE','NYJ'],['NO','ATL'],['MIA','CLE']],
-13:[['BAL','CIN'],['IND','TEN'],['LV','LAC'],['NYJ','BUF'],['DAL','KC'],['PHI','CHI'],['SF','CAR'],['SEA','ATL'],['DEN','MIN'],['HOU','JAX'],['PIT','CLE'],['ARI','LAR'],['GB','DET'],['TB','NO'],['NE','MIA'],['NYG','WAS']],
-14:[['DAL','CHI'],['ARI','SEA'],['DET','GB'],['LAR','CAR'],['BUF','NE'],['KC','LV'],['JAX','TEN'],['HOU','IND'],['MIN','ATL'],['PHI','NYG'],['SF','NO'],['CIN','PIT'],['CLE','BAL'],['LAC','DEN'],['MIA','NYJ']],
-15:[['NE','KC'],['DAL','NYG'],['GB','CHI'],['BUF','NYJ'],['PHI','WAS'],['LAR','SEA'],['SF','ARI'],['DET','MIN'],['BAL','PIT'],['CIN','CLE'],['DEN','LV'],['HOU','JAX'],['LAC','KC'],['TB','ATL'],['NO','CAR'],['MIA','IND']],
-16:[['NYG','DET'],['KC','DEN'],['BUF','NE'],['PHI','DAL'],['GB','LAR'],['CHI','MIN'],['SF','SEA'],['BAL','CLE'],['PIT','CIN'],['HOU','TEN'],['JAX','IND'],['MIA','NYJ'],['ATL','CAR'],['TB','NO'],['ARI','LAC'],['LV','LAC']],
-17:[['HOU','GB'],['DAL','PHI'],['KC','DEN'],['SF','SEA'],['BUF','MIA'],['BAL','CIN'],['PIT','CLE'],['DET','MIN'],['CHI','GB'],['NYJ','NE'],['JAX','TEN'],['IND','HOU'],['LAC','LV'],['CAR','ATL'],['NO','TB'],['ARI','LAR']],
-18:[['DAL','NYG'],['PHI','WAS'],['GB','CHI'],['DET','MIN'],['SF','SEA'],['LAR','ARI'],['KC','LV'],['DEN','LAC'],['BUF','NYJ'],['NE','MIA'],['BAL','PIT'],['CIN','CLE'],['HOU','TEN'],['JAX','IND'],['ATL','CAR'],['NO','TB']]
+6:[['LAR','ARI'],['ATL','CHI'],['CLE','BAL'],['LV','BUF'],['PHI','CAR'],['GB','DAL'],['DEN','SEA'],['HOU','JAX'],['IND','TEN'],['KC','LAC'],['NE','NYJ'],['NYG','NO'],['TB','PIT'],['SF','WAS']],
+7:[['ARI','DEN'],['ATL','SF'],['BAL','CIN'],['CAR','TB'],['CHI','NE'],['TEN','CLE'],['PHI','DAL'],['DET','GB'],['HOU','NYG'],['MIN','IND'],['SEA','KC'],['LV','LAR'],['NYJ','MIA'],['NO','PIT']],
+8:[['DAL','ARI'],['TB','ATL'],['BUF','BAL'],['GB','CAR'],['SEA','CHI'],['CIN','TEN'],['PIT','CLE'],['DEN','KC'],['DET','MIN'],['JAX','IND'],['NYJ','LV'],['LAR','LAC'],['MIA','NE'],['WAS','PHI']],
+9:[['SEA','ARI'],['ATL','CIN'],['BAL','JAX'],['MIN','BUF'],['CAR','DEN'],['CHI','TB'],['NO','CLE'],['IND','DAL'],['MIA','DET'],['NE','GB'],['LAC','HOU'],['KC','NYJ'],['SF','LV'],['WAS','LAR'],['PHI','NYG']],
+10:[['ARI','LAR'],['ATL','KC'],['BAL','LAC'],['NYJ','BUF'],['NO','CAR'],['CIN','PIT'],['CLE','HOU'],['DAL','SF'],['DET','NE'],['GB','MIN'],['IND','MIA'],['TEN','JAX'],['LV','SEA'],['NYG','WAS']],
+11:[['KC','ARI'],['CAR','BAL'],['BUF','MIA'],['CHI','NO'],['WAS','CIN'],['DAL','TEN'],['DEN','LV'],['DET','TB'],['HOU','IND'],['NYG','JAX'],['LAC','NYJ'],['MIN','SF'],['PHI','PIT']],
+12:[['ARI','WAS'],['MIN','ATL'],['HOU','BAL'],['BUF','KC'],['TB','CAR'],['DET','CHI'],['CIN','NO'],['CLE','LV'],['DAL','PHI'],['PIT','DEN'],['LAR','GB'],['IND','NYG'],['JAX','TEN'],['LAC','NE'],['MIA','NYJ'],['SF','SEA']],
+13:[['ARI','PHI'],['ATL','DET'],['NE','BUF'],['MIN','CAR'],['CHI','JAX'],['CLE','CIN'],['SEA','DAL'],['DEN','MIA'],['NO','GB'],['PIT','HOU'],['LAR','KC'],['TB','LAC'],['NYG','SF'],['TEN','WAS']],
+14:[['CLE','ATL'],['BAL','TB'],['GB','BUF'],['CAR','NO'],['MIA','CHI'],['CIN','KC'],['NYJ','DEN'],['DET','TEN'],['WAS','HOU'],['PHI','IND'],['JAX','PIT'],['LV','LAC'],['SF','LAR'],['NE','MIN'],['SEA','NYG']],
+15:[['ARI','NYJ'],['WAS','ATL'],['PIT','BAL'],['BUF','CHI'],['CAR','CIN'],['NYG','CLE'],['LAR','DAL'],['LV','DEN'],['MIN','DET'],['GB','MIA'],['HOU','JAX'],['TEN','IND'],['KC','NE'],['LAC','SF'],['TB','NO'],['PHI','SEA']],
+16:[['NO','ARI'],['ATL','TB'],['BAL','CLE'],['DEN','BUF'],['PIT','CAR'],['CHI','GB'],['IND','CIN'],['DAL','JAX'],['DET','NYG'],['PHI','HOU'],['KC','SF'],['LV','TEN'],['MIA','LAC'],['SEA','LAR'],['MIN','WAS'],['NYJ','NE']],
+17:[['ARI','LV'],['ATL','NO'],['CIN','BAL'],['MIA','BUF'],['CAR','SEA'],['CHI','DET'],['CLE','IND'],['DAL','NYG'],['NE','DEN'],['GB','HOU'],['JAX','WAS'],['LAC','KC'],['TB','LAR'],['NYJ','MIN'],['SF','PHI'],['TEN','PIT']],
+18:[['ARI','SF'],['CAR','ATL'],['BAL','PIT'],['BUF','NYJ'],['MIN','CHI'],['CIN','CLE'],['WAS','DAL'],['DEN','LAC'],['GB','DET'],['HOU','TEN'],['IND','JAX'],['KC','LV'],['LAR','SEA'],['NE','MIA'],['NO','TB'],['NYG','PHI']]
 };
-// Correct accidental aliases / duplicate schedule placeholders before rendering.
-games[6]=games[6].filter(g=>g[0]!=='WAS'&&g[1]!=='49ers');
+// Official 2026 schedule: weeks 6-18, including each week's bye teams.
 let user=null,profile=null,week=4,i=0,picks=[],submitted=false,results={};
 const $=id=>document.getElementById(id); const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function msg(t,ok=false){$('authMsg').textContent=t;$('authMsg').className='notice '+(ok?'ok':'error')}
